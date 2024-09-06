@@ -1,0 +1,92 @@
+/* Fondo del modal */
+.custom-modal-overlay {
+    background-color: rgba(0, 0, 0, 0.5); 
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; 
+  }
+  
+  /* Estilos del contenedor del modal */
+  .custom-modal {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 600px;
+    width: 100%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 1001; 
+  }
+  
+  /* Encabezado del modal */
+  .custom-modal .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+  
+  /* Estilo del botón de cierre */
+  .custom-modal .close-button {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #333;
+    padding: 5px;
+  }
+  
+  .custom-modal .close-button:hover {
+    color: red;
+  }
+  
+  /* Estilos para los inputs del formulario */
+  .custom-modal form div {
+    margin-bottom: 10px;
+  }
+  
+  .custom-modal form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  .custom-modal form input {
+    width: 100%;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+  }
+  
+  /* Estilo del botón de creación */
+  .custom-modal button[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .custom-modal button[type="submit"]:disabled {
+    background-color: #ddd;
+    cursor: not-allowed;
+  }
+  
+  .custom-modal button[type="submit"]:hover:enabled {
+    background-color: #45a049;
+  }
+  
+  /* Estilo del mensaje de error */
+  .custom-modal .error-message {
+    color: red;
+    margin-top: 10px;
+  }
+  
