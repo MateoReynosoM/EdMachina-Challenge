@@ -1,4 +1,4 @@
-Para Comenzar el proyecto es necesario tener docker instalado, y la base de datos creada, con los parametros cargados en el archivo .env que se encuentra en /api
+Para Comenzar el proyecto es necesario tener docker instalado, y la base de datos creada, con los parametros cargados en el archivo .env que se encuentra en /api/README.md
 -Asegurarse de borrar 'localhost' de el archivo .env en la llave DB_HOST
 -Teniendo la base de datos creada y los parametros cargados ejecturar el siguiente comando:
 
