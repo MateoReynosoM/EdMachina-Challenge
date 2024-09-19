@@ -10,6 +10,6 @@ class Personas(Base):
     name = Column(String)
     first_name = Column(String)
     dni = Column(Integer, unique=True)
-    email = Column(String)
+    email = Column(String, unique=True)
     address = Column(String)
-    phone = Column(String, nullable=True)
+    phone = Column(String)

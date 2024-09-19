@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './components/NavBar';
 import Info from './components/Info';
-import CrearLeads from './components/CreateLead'; 
+import CreateLeads from './components/CreateLead'; 
 
 const App = () => {
   return (
@@ -11,7 +11,7 @@ const App = () => {
       <div className="content">
         <Routes>
           <Route path="/" element={<Info />} />
-          <Route path="/create-lead" element={<CrearLeads />} />
+          <Route path="/create-lead" element={<CreateLeads />} />
         </Routes>
       </div>
     </Router>

@@ -15,7 +15,7 @@ async def get_materias(
     db: db_dependency,
     name: str = None,
     skip: int = Query(0, ge=0),  
-    limit: int = Query(10, le=100) 
+    limit: int = Query(30, le=100) 
 ):
     total_count = db.query(Materias).count()
     materias = search_materias(db, name, skip, limit)
