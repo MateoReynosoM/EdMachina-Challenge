@@ -16,7 +16,7 @@ class Personas_create(BaseModel):
     dni: int = Field(ge=0, le=99999999)
     email: EmailStr 
     address: str = Field(min_length=1, max_length=70)
-    phone: str 
+    phone: str
 
 class PaginatedResponse(BaseModel):
     total: int

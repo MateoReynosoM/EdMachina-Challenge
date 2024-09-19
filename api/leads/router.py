@@ -16,7 +16,7 @@ async def get_leads(
     id: Optional[UUID] = Query(None),
     persona_id: Optional[UUID] = Query(None),
     skip: int = Query(0, ge=0),  
-    limit: int = Query(10, le=100)  
+    limit: int = Query(30, le=100)  
 ):
     total_count = db.query(Leads).count()
     leads = search_leads(db, id, persona_id, skip, limit)

@@ -13,17 +13,17 @@ const Info = () => {
   }
 
   const getPersonaName = (personaId) => {
-    const persona = personas.items.find((p) => p.id === personaId);
+    const persona = personas?.items?.find((p) => p.id === personaId);
     return persona ? persona.name : 'Unknown';
   };
 
   const getMateriaName = (materiaId) => {
-    const materia = materias.items.find((m) => m.id === materiaId);
+    const materia = materias?.items?.find((m) => m.id === materiaId);
     return materia ? materia.name : 'Unknown';
   };
 
   const getCarreraName = (carreraId) => {
-    const carrera = carreras.items.find((c) => c.id === carreraId);
+    const carrera = carreras?.items?.find((c) => c.id === carreraId);
     return carrera ? carrera.name : 'Unknown';
   };
 
@@ -118,7 +118,7 @@ const Info = () => {
           ))}
         </tbody>
       </table>
-      
+
 
     </div>
   );

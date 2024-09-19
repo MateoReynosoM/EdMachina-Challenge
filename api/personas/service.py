@@ -1,5 +1,6 @@
 from uuid import UUID
 from fastapi import HTTPException
+import re
 
 from db import db_dependency
 from personas.model import Personas
@@ -25,6 +26,11 @@ def search_personas(db: db_dependency, name: str, first_name: str, dni: int, ski
 def create_persona(db: db_dependency, persona: Personas_create):
     if db.query(Personas).filter(Personas.dni == persona.dni).first():
         raise HTTPException(status_code=400, detail="DNI already in use")
+    if db.query(Personas).filter(Personas.email == persona.email).first():
+        raise HTTPException(status_code=400, detail="Email already in use")
+    if not re.match(r'^\+?[1-9]\d{6,14}$', persona.phone):
+        raise HTTPException(status_code=400, detail="Phone number is not valid.")
+        
     db_persona = Personas(**persona.dict(exclude_unset=True))
     db.add(db_persona)
     db.commit()

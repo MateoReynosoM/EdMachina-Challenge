@@ -16,7 +16,7 @@ async def get_carrreras(
     db: db_dependency,
     nombre: str = None,
     skip: int = Query(0, ge=0),  
-    limit: int = Query(10, le=100) 
+    limit: int = Query(30, le=100) 
 ):
     total_count = db.query(Carreras).count()
     carreras = search_carreras(db, nombre, skip, limit)

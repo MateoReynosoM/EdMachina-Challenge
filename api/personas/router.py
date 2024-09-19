@@ -11,14 +11,14 @@ router_personas = APIRouter(
 )
 
 
-@router_personas.get('/get', response_model=PaginatedResponse)
+@router_personas.get('/get', response_model=PaginatedResponse, description='pedido para obtener personas')
 async def get_personas(
     db: db_dependency,
     name: str = None ,
     first_name: str = None,
     dni: int = None,
     skip: int = Query(0, ge=0),  
-    limit: int = Query(10, le=100)  
+    limit: int = Query(30, le=100)  
 ):  
     total_count = db.query(Personas).count()
     personas = search_personas(db, name, first_name, dni, skip, limit)
