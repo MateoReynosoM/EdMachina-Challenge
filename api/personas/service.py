@@ -4,7 +4,8 @@ import re
 
 from db import db_dependency
 from personas.model import Personas
-from personas.schema import Personas_base, Personas_create
+from personas.schema import Personas_base, Personas_create, Personas_update
+from leads.model import Leads
 
 def search_personas(db: db_dependency, name: str, first_name: str, dni: int, skip: int = 0, limit: int = 10 ):
     query = db.query(Personas)
@@ -38,13 +39,10 @@ def create_persona(db: db_dependency, persona: Personas_create):
     return Personas_base(**db_persona.__dict__)
 
 
-def update_persona(db: db_dependency, id: UUID, persona: Personas_create):
+def update_persona(db: db_dependency, id: UUID, persona: Personas_update):
     persona_in_db = db.query(Personas).filter(Personas.id == id).first()
     if not persona_in_db:
         raise HTTPException(status_code=404, detail="Persona not found")
-    
-    if db.query(Personas).filter(Personas.dni == persona.dni).filter(Personas.id != id).first():
-        raise HTTPException(status_code=400, detail="DNI already in use")
     
     update_data = persona.dict(exclude_unset=True)
     for key, value in update_data.items():
@@ -58,6 +56,10 @@ def remove_persona(db: db_dependency, id: UUID):
     persona_in_db = db.query(Personas).filter(Personas.id == id).first()
     if not persona_in_db:
         raise HTTPException(status_code=404, detail="Persona not found")
+
+    leads_asociados = db.query(Leads).filter(Leads.persona_id == id).all()
+    for lead in leads_asociados:
+        lead.persona_id = None  # O lo que desees asignar
 
     db.delete(persona_in_db)
     db.commit()

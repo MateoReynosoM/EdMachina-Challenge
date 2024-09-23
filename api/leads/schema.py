@@ -1,5 +1,6 @@
 from uuid import UUID
 from pydantic import BaseModel
+from typing import Optional
 
     
 class Leads_Materias_create(BaseModel):
@@ -9,15 +10,20 @@ class Leads_Materias_create(BaseModel):
     
 class Leads_base(BaseModel):
     id:UUID
-    persona_id: UUID 
+    persona_id: Optional[UUID] = None
     materias_ids: list[Leads_Materias_create] 
-    carrera_id: UUID 
+    carrera_id: Optional[UUID] = None
 
 class Leads_delete(BaseModel):
     id:UUID
-    persona_id: UUID 
-    carrera_id: UUID 
+    persona_id: Optional[UUID] = None
+    carrera_id: Optional[UUID] = None
 
+class Leads_create(BaseModel):
+    persona_id: UUID 
+    materias_ids: list[Leads_Materias_create] 
+    carrera_id: UUID 
+    
 class Leads_create(BaseModel):
     persona_id: UUID 
     materias_ids: list[Leads_Materias_create] 

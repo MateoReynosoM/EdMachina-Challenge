@@ -39,7 +39,7 @@ async def post_persona(
 async def put_persona(
     db: db_dependency, 
     id: UUID,
-    persona: Personas_create
+    persona: Personas_update
 ):
     return update_persona(db, id, persona)
 

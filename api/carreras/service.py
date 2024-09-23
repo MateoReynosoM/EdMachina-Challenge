@@ -4,6 +4,7 @@ from fastapi import HTTPException
 from db import db_dependency
 from carreras.model import Carreras
 from carreras.schema import Carreras_create, Carreras_base
+from leads.model import Leads
 
 def search_carreras(db: db_dependency, name: str, skip: int = 0, limit: int = 10):
     query = db.query(Carreras)
@@ -53,6 +54,10 @@ def remove_carrera(db: db_dependency, id: UUID):
     carrera_in_db = db.query(Carreras).filter(Carreras.id == id).first()
     if not carrera_in_db:
         raise HTTPException(status_code=404, detail="Carrera not found")
+
+    leads_asociados = db.query(Leads).filter(Leads.carrera_id == id).all()
+    for lead in leads_asociados:
+        lead.carrera_id = None 
 
     db.delete(carrera_in_db)
     db.commit()

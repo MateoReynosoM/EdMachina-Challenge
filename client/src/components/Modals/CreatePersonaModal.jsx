@@ -45,8 +45,8 @@ const CreatePersonaModal = ({ isOpen, onClose, setSelectedPersonaId }) => {
     if (address.length < 1 || address.length > 70) {
       validationErrors.address = 'La dirección debe tener entre 1 y 70 caracteres.';
     }
-    if (phone && phone.length < 7) {
-      validationErrors.phone = 'El teléfono debe tener al menos 7 caracteres.';
+    if (phone && !/^\+?[1-9]\d{6,14}$/.test(phone)) {
+      validationErrors.phone = 'El teléfono debe tener entre 7 y 15 dígitos, y puede comenzar con un +.';
     }
 
     setErrors(validationErrors);
@@ -55,6 +55,7 @@ const CreatePersonaModal = ({ isOpen, onClose, setSelectedPersonaId }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    e.stopPropagation();
     if (!validateForm()) return;
 
     try {

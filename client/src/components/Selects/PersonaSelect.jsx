@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useGetPersonasQuery } from '../../store/api';
 import CreatePersonaModal from '../Modals/CreatePersonaModal';
 
-const PersonaSelect = ({ selectedPersonaId, onSelectPersona, onCreatePersona, setSelectedPersonaId }) => {
+const PersonaSelect = ({ selectedPersonaId, onSelectPersona, setSelectedPersonaId }) => {
   const { data: personas = [], isLoading } = useGetPersonasQuery();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -10,6 +10,7 @@ const PersonaSelect = ({ selectedPersonaId, onSelectPersona, onCreatePersona, se
     <div>
 
       <select
+        style={select}
         value={selectedPersonaId}
         onChange={(e) => onSelectPersona(e.target.value)}
         disabled={isLoading}
@@ -21,7 +22,7 @@ const PersonaSelect = ({ selectedPersonaId, onSelectPersona, onCreatePersona, se
           </option>
         ))}
       </select>
-      <button type="button" onClick={onCreatePersona}>Crear Persona</button>
+      <button style={{}} type="button" onClick={()=>setIsModalOpen(true)}>Crear Persona</button>
       <CreatePersonaModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
@@ -30,5 +31,13 @@ const PersonaSelect = ({ selectedPersonaId, onSelectPersona, onCreatePersona, se
     </div>
   );
 };
+
+const select = {
+  marginBottom: '15px',
+  padding: '10px',
+  paddingRight: '10px',
+  borderRadius: '4px',
+  border: '1px solid #ccc',
+}
 
 export default PersonaSelect;

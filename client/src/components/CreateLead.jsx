@@ -3,18 +3,18 @@ import { useCreateLeadMutation } from '../store/api';
 import MateriaSelect from './Selects/MateriaSelect';
 import CarreraSelect from './Selects/CarreraSelect';
 import PersonaSelect from './Selects/PersonaSelect';
-import CreatePersonaModal from './Modals/CreatePersonaModal';
 import '../styles/CrearLead.css';
+import Notification from './Notification';
 
 const CreateLeads = () => {
   const [createLead, { isLoading, error }] = useCreateLeadMutation();
   const [personaId, setPersonaId] = useState('');
   const [selectedMaterias, setSelectedMaterias] = useState([]);
   const [selectedCarreraId, setSelectedCarreraId] = useState('');
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
   const [errors, setErrors] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [showNotification, setShowNotification] = useState(false);
 
   const validateFields = () => {
     let validationErrors = {};
@@ -72,17 +72,10 @@ const CreateLeads = () => {
       }).unwrap();
 
       setSuccessMessage(`Lead creado exitosamente. ID: ${result.id}`);
+      setShowNotification(true);
     } catch (err) {
       alert('Error al crear el lead');
     }
-  };
-
-  const handleOpenModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
   };
 
   const handlePersonaChange = (value) => {
@@ -135,8 +128,8 @@ const CreateLeads = () => {
         <div className="form-group">
           <PersonaSelect
             selectedPersonaId={personaId}
+            setSelectedPersonaId={setPersonaId}
             onSelectPersona={handlePersonaChange}
-            onCreatePersona={handleOpenModal}
           />
           {isSubmitted && errors.persona && <div style={errorMessage}>{errors.persona}</div>}
         </div>
@@ -145,7 +138,7 @@ const CreateLeads = () => {
         <div className="form-group">
           <MateriaSelect
             selectedMaterias={selectedMaterias}
-            setSelectedMaterias={handleMateriaChange}
+            setSelectedMaterias={handleMateriaChange} // Asegúrate de que esta función maneje la actualización de materias
             errors={isSubmitted ? errors.materias || {} : {}}
           />
           {isSubmitted && errors.materias && errors.materias.global && (
@@ -168,9 +161,13 @@ const CreateLeads = () => {
 
         {error && <div style={errorMessage}>Error: {error.detail}</div>}
         {successMessage && <div className="success-message">{successMessage}</div>}
+        {successMessage && showNotification && (
+          <Notification 
+            message={successMessage}
+            onClose={() => setShowNotification(false)} 
+          />
+        )}
       </form>
-
-      <CreatePersonaModal isOpen={isModalOpen} onClose={handleCloseModal} setSelectedPersonaId={setPersonaId} />
     </div>
   );
 };

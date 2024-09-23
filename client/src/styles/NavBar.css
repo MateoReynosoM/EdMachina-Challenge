@@ -23,7 +23,7 @@
   /* Enlace del Navbar */
   .navbar-link {
     text-decoration: none;
-    color: #4CAF50;
+    color: #4636fa;
     font-weight: bold;
     padding: 10px;
     border-radius: 4px;
@@ -31,12 +31,12 @@
   }
   
   .navbar-link:hover {
-    background-color: #e8f5e9;
-    color: #45a049;
+    background-color: #dcddff;
+    color: #4132e2;
   }
   
   .navbar-link.active {
-    background-color: #d0f0c0;
-    color: #4CAF50;
+    background-color: #dcddff;
+    color: #4636fa;
   }
   

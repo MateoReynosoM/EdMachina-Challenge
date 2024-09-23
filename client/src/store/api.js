@@ -99,6 +99,13 @@ export const apiSlice = createApi({
         body: data,
       }),
     }),
+    updateLead: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `leads/update/${id}`,
+        method: 'PUT',
+        body: data,
+      }),
+    }),
     deleteLead: builder.mutation({
       query: (id) => ({
         url: `leads/delete/${id}`,
@@ -120,6 +127,7 @@ export const {
   useGetCarrerasQuery,
   useCreateCarreraMutation,
   useUpdateCarreraMutation,
+  useUpdateLeadMutation,
   useDeleteCarreraMutation,
   useGetLeadsQuery,
   useCreateLeadMutation,

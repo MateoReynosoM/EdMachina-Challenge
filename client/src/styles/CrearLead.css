@@ -32,7 +32,7 @@
   }
   
   .crear-leads-container button {
-    background-color: #4CAF50;
+    background-color: #4636fa;
     color: white;
     border: none;
     cursor: pointer;
@@ -44,7 +44,7 @@
   }
   
   .crear-leads-container button:hover:enabled {
-    background-color: #45a049;
+    background-color: #4132e2;
   }
   
 

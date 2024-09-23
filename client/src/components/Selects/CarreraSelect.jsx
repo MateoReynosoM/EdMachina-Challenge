@@ -18,7 +18,7 @@ const CarreraSelect = ({ selectedCarreraId, onSelectCarrera }) => {
 
   return (
     <div>
-      <select value={selectedCarreraId} onChange={(e) => onSelectCarrera(e.target.value)}>
+      <select style={select} value={selectedCarreraId} onChange={(e) => onSelectCarrera(e.target.value)}>
         <option value="">Seleccione una carrera</option>
         {carreras?.items?.map(carrera => (
           <option key={carrera.id} value={carrera.id}>{carrera.name}</option>
@@ -37,5 +37,12 @@ const CarreraSelect = ({ selectedCarreraId, onSelectCarrera }) => {
     </div>
   );
 };
+
+const select = {
+  marginBottom: '15px',
+  padding: '10px',
+  borderRadius: '4px',
+  border: '1px solid #ccc',
+}
 
 export default CarreraSelect;

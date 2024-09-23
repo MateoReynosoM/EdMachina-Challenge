@@ -79,6 +79,41 @@ def create_lead(db: db_dependency, lead: Leads_create):
 
     return {"id": db_lead.id, "message": "Lead created successfully"}
 
+def update_lead(db: db_dependency, lead_id: UUID, lead_data: Leads_create):
+    lead_in_db = db.query(Leads).filter(Leads.id == lead_id).first()
+    
+    if not lead_in_db:
+        raise HTTPException(status_code=404, detail="Lead not found")
+
+    validar_datos(db, lead_data)
+
+    lead_in_db.persona_id = lead_data.persona_id
+    lead_in_db.carrera_id = lead_data.carrera_id
+
+    existing_materias = db.query(LeadsMaterias).filter(LeadsMaterias.lead_id == lead_id).all()
+    for materia in existing_materias:
+        db.delete(materia)
+
+    for materia_data in lead_data.materias_ids:
+        materia = db.query(Materias).filter(Materias.id == materia_data.materia_id).first()
+        if materia:
+            db_lead_materia = LeadsMaterias(
+                lead_id=lead_in_db.id,
+                materia_id=materia_data.materia_id,
+                year_of_inscription=materia_data.year_of_inscription,
+                attendance_times=materia_data.attendance_times
+            )
+            db.add(db_lead_materia)
+        else:
+            raise HTTPException(status_code=404, detail=f"Materia with ID {materia_data.materia_id} not found")
+
+    db.commit()
+    db.refresh(lead_in_db)
+
+    return {"id": lead_in_db.id, "message": "Lead updated successfully"}
+
+
+
 def validar_datos(db: db_dependency, lead: Leads_create):
     persona = db.query(Personas).filter(Personas.id == lead.persona_id).first()
     materias_ids = [materia.materia_id for materia in lead.materias_ids]

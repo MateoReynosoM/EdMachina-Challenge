@@ -9,6 +9,14 @@ class Personas_base(BaseModel):
     first_name: str
     dni: int
     email:EmailStr
+    phone: str
+    address: str
+
+class Personas_update(BaseModel):
+    name: str = Field(min_length=1, max_length=50)
+    first_name: str = Field(min_length=1, max_length=50)
+    phone: str
+    address: str = Field(min_length=1, max_length=70)
     
 class Personas_create(BaseModel):
     name: str = Field(min_length=1, max_length=50)

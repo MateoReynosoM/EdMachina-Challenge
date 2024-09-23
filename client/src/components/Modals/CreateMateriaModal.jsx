@@ -51,7 +51,6 @@ const CreateMateriaModal = ({ isOpen, onClose, onCreateMateria, isLoading, creat
         duration: '',
       });
       setErrors({});
-      /* onClose(); */
       
     } catch (err) {
       console.error('Error al crear la materia:', err);

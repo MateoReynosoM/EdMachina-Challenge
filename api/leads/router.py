@@ -33,6 +33,14 @@ async def post_lead(
 ):
     return create_lead(db, lead)
 
+@router_leads.put('/update/{id}')
+async def put_lead(
+    db: db_dependency, 
+    id: UUID,
+    lead: Leads_create
+):
+    return update_lead(db, id, lead)
+
 
 @router_leads.delete('/delete/{id}', response_model=Leads_delete)
 async def delete_lead(

@@ -30,7 +30,7 @@ const MateriaSelect = ({ selectedMaterias, setSelectedMaterias, errors }) => {
   const handleSelectChange = (e) => {
     const materiaId = e.target.value;
     if (materiaId) {
-      const materia = materias.items.find(m => String(m.id) === String(materiaId));
+      const materia = materias?.items?.find(m => String(m.id) === String(materiaId));
       if (materia) {
         setSelectedMaterias([
           ...selectedMaterias,
@@ -43,7 +43,7 @@ const MateriaSelect = ({ selectedMaterias, setSelectedMaterias, errors }) => {
         ]);
         setSelectedMateriaId('');
       } else {
-        console.error('Materia no encontrada en el array de materias');
+        console.error('Materia no encontrada en el array de materias', { materias: materias?.items, materiaId });
       }
     }
   };
@@ -61,7 +61,7 @@ const MateriaSelect = ({ selectedMaterias, setSelectedMaterias, errors }) => {
 
   return (
     <div>
-      <select value={selectedMateriaId} onChange={handleSelectChange} >
+      <select style={select} value={selectedMateriaId} onChange={handleSelectChange}>
         <option value="">Seleccione una materia</option>
         {materias?.items?.filter(materia => !selectedMaterias.find(m => m.id === materia.id))
           .map(materia => (
@@ -84,7 +84,7 @@ const MateriaSelect = ({ selectedMaterias, setSelectedMaterias, errors }) => {
         {selectedMaterias.map(materia => (
           <div key={materia.id} style={{ display: 'flex', alignItems: "baseline" }}>
             <span style={{ marginLeft: '10px' }}>{materia.name}</span>
-            <div>
+            <div  style={{ marginLeft: '10px' }}>
               <input
                 type="number"
                 value={materia.inscriptionYear}
@@ -92,11 +92,10 @@ const MateriaSelect = ({ selectedMaterias, setSelectedMaterias, errors }) => {
                 placeholder="Año de inscripción"
               />
               {errors[materia.id]?.inscriptionYear && (
-                <div style={errorMessage} >{errors[materia.id].inscriptionYear}</div>
+                <div style={errorMessage}>{errors[materia.id].inscriptionYear}</div>
               )}
             </div>
-            <div>
-
+            <div  style={{ marginLeft: '10px' }}>
               <input
                 type="number"
                 value={materia.attendanceTimes}
@@ -104,10 +103,10 @@ const MateriaSelect = ({ selectedMaterias, setSelectedMaterias, errors }) => {
                 placeholder="Veces que se recurrió"
               />
               {errors[materia.id]?.attendanceTimes && (
-                <div style={errorMessage} >{errors[materia.id].attendanceTimes}</div>
+                <div style={errorMessage}>{errors[materia.id].attendanceTimes}</div>
               )}
             </div>
-            <button onClick={() => handleRemoveRow(materia.id)}>Eliminar</button>
+            <button onClick={() => handleRemoveRow(materia.id)}>X</button>
           </div>
         ))}
       </div>
@@ -121,5 +120,11 @@ const errorMessage = {
   marginBottom: "6px"
 }
 
+const select = {
+  marginBottom: '15px',
+  padding: '10px',
+  borderRadius: '4px',
+  border: '1px solid #ccc',
+}
 
 export default MateriaSelect;
